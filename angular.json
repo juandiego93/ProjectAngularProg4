@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ProjectProgCuatro"
+    }
+  },
+  "defaultProject": "ProjectProgCuatro",
+  "cli": {
+    "analytics": false
+  }
 }
