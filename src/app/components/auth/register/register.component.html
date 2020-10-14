@@ -1,1 +1,53 @@
-<p>register works!</p>
+<div class="login-dark">
+    <form>
+        <div class="illustration">
+            <i class="icon ion-ios-locked-outline">
+                <h1>Resgístrate</h1>
+            </i>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <input formControlName="nameUser" class="form-control" type="text" name="nameUser"
+                        placeholder="Nombre de Usuario">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <input formControlName="name" class="form-control" type="name" name="name" placeholder="Nombres">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input formControlName="surname" class="form-control" type="surname" name="surname"
+                        placeholder="Apellidos">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <input formControlName="email" class="form-control" type="email" name="email" placeholder="Email">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <input formControlName="password" class="form-control" type="password" name="password"
+                        placeholder="Contraseña">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">
+                Registrarse
+            </button>
+        </div>
+        <a [routerLink]="['/login']" routerLinkActive="router-link-active" class="forgot">
+            ¿ Ya tienes una cuenta ? Inicia Sesión !
+        </a>
+    </form>
+</div>
