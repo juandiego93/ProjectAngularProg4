@@ -1,1 +1,45 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" [routerLink]="['']" routerLinkActive="router-link-active">Colosal Games</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Tiendas Recomendadas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="https://www.riotgames.com/es" target="_blank">Riot Games</a>
+                    <a class="dropdown-item" href="https://www.epicgames.com/store/es-ES/" target="_blank">Epic
+                        Games</a>
+                    <a class="dropdown-item" href="https://store.playstation.com/es-co/home/games" target="_blank">Play
+                        Station Store</a>
+                    <a class="dropdown-item" href="https://www.xbox.com/es-CO/microsoft-store" target="_blank">Xbox
+                        Store</a>
+                    <a class="dropdown-item"
+                        href="https://www.nintendo.es/My-Nintendo-Store/My-Nintendo-Store-1114919.html"
+                        target="_blank">Nintendo Store</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/crud-game']" routerLinkActive="router-link-active">Registra tu
+                    juego</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/about']" routerLinkActive="router-link-active">Sobre Nosotros</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" #search_text>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button"
+                (click)="search(search_text)">Buscar</button>
+        </form>
+        <a [routerLink]="['/login']" routerLinkActive="router-link-active"
+            class="btn btn-outline-light my-2 my-sm-0 m-1">Iniciar Sesión</a>
+        <a [routerLink]="['/register']" routerLinkActive="router-link-active"
+            class="btn btn-outline-light my-2 my-sm-0 m-1">Registrate</a>
+    </div>
+</nav>

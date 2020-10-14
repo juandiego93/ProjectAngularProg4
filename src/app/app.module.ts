@@ -11,6 +11,10 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { UserComponent } from './components/pages/user/user.component';
 import { GameComponent } from './components/pages/game/game.component';
 import { GamesComponent } from './components/pages/games/games.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AboutComponent } from './components/pages/about/about.component';
+import { CrudGameComponent } from './components/pages/crud-game/crud-game.component';
+import { SearchComponent } from './components/pages/search/search.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +26,16 @@ import { GamesComponent } from './components/pages/games/games.component';
     RegisterComponent,
     UserComponent,
     GameComponent,
-    GamesComponent
+    GamesComponent,
+    AboutComponent,
+    CrudGameComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
