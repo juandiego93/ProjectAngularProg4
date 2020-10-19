@@ -1,5 +1,5 @@
 <div class="login-dark">
-    <form>
+    <form id="register_form" [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="off">
         <div class="illustration">
             <i class="icon ion-ios-locked-outline">
                 <h1>Resgístrate</h1>
@@ -10,6 +10,10 @@
                 <div class="form-group">
                     <input formControlName="nameUser" class="form-control" type="text" name="nameUser"
                         placeholder="Nombre de Usuario">
+                    <span class="text-danger"
+                        *ngIf="registerForm.controls.nameUser.touched  && registerForm.controls.nameUser.errors?.required">
+                        El Nombre de Usuario es requerido
+                    </span>
                 </div>
             </div>
         </div>
@@ -17,12 +21,20 @@
             <div class="col">
                 <div class="form-group">
                     <input formControlName="name" class="form-control" type="name" name="name" placeholder="Nombres">
+                    <span class="text-danger"
+                        *ngIf="registerForm.controls.name.touched  && registerForm.controls.name.errors?.required">
+                        Los Nombres son requeridos
+                    </span>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <input formControlName="surname" class="form-control" type="surname" name="surname"
                         placeholder="Apellidos">
+                    <span class="text-danger"
+                        *ngIf="registerForm.controls.surname.touched  && registerForm.controls.surname.errors?.required">
+                        Los Apellidos son requeridos
+                    </span>
                 </div>
             </div>
         </div>
@@ -30,6 +42,14 @@
             <div class="col">
                 <div class="form-group">
                     <input formControlName="email" class="form-control" type="email" name="email" placeholder="Email">
+                    <span class="text-danger"
+                        *ngIf="registerForm.controls.email.touched  && registerForm.controls.email.errors?.required">
+                        El correo es requerido
+                    </span>
+                    <span class="text-danger"
+                        *ngIf="registerForm.controls.email.touched  && registerForm.controls.email.errors?.email">
+                        Debe ser un correo válido
+                    </span>
                 </div>
             </div>
         </div>
@@ -38,14 +58,22 @@
                 <div class="form-group">
                     <input formControlName="password" class="form-control" type="password" name="password"
                         placeholder="Contraseña">
+                    <span class="text-danger"
+                        *ngIf="registerForm.controls.password.touched  && registerForm.controls.password.errors?.required">
+                        La contraseña es requerida
+                    </span>
+                    <span class="text-danger"
+                        *ngIf="registerForm.controls.password.touched  && registerForm.controls.password.errors?.min">
+                        La contraseña es de mínimo 4 caracteres
+                    </span>
                 </div>
             </div>
-            <div class="col">
+            <!-- <div class="col">
                 <div class="form-group">
-                    <input formControlName="password" class="form-control" type="password" name="password"
+                    <input formControlName="confirm_password" class="form-control" type="confirm_password" name="confirm_password"
                         placeholder="Confirmar Contraseña">
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="form-group">
             <button class="btn btn-primary btn-block" type="submit">

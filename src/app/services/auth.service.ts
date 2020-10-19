@@ -2,26 +2,45 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { BehaviorSubject, Observable } from 'rxjs'
 import * as jwt from 'jsonwebtoken';
-
+import * as fs from 'fs'
+import { UserModel } from '../models/User.model';
+const _fs = require('browserify-fs');
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  DBUsers: any = []
   isLogginSubject = new BehaviorSubject<boolean>(this.hasToken())
   JWT: string
+
   constructor(private router: Router) { }
 
   private hasToken(): boolean {
     return !!localStorage.getItem('token')
   }
 
-  login(email: string, pass: string): void {
-    const user = { email, pass }
-    this.JWT = this.createToken(user)
-    localStorage.setItem('token', `${this.JWT}`)
-    this.isLogginSubject.next(true)
-    setTimeout(() => { this.router.navigate(['/user']) }, 1000)
+  login(user: UserModel): void {
+    try {
+      if (this.searchUser(user)) {
+        const send = { email: user.email, pass: user.password }
+        this.JWT = this.createToken(send)
+        localStorage.setItem('token', `${this.JWT}`)
+        this.isLogginSubject.next(true)
+        setTimeout(() => { this.router.navigate(['/user']) }, 1000)
+      }
+    } catch (error) {
+      this.logout()
+      console.log(error);
+    }
+  }
+
+  searchUser(userLogin): boolean {
+    const arrayUsers = this.DBUsers
+    const findUser = arrayUsers.find(user => {
+      return userLogin.email == user.email && userLogin.password == user.password
+    })
+    return findUser ? true : false
   }
 
   logout(): void {
@@ -40,6 +59,40 @@ export class AuthService {
     const jwtBearerToken = jwt.sign({ user }, `${KEY}`)
     console.log(jwtBearerToken)
     return jwtBearerToken
+  }
+
+  loadDB() {
+    try {
+      this.DBUsers = require('../../assets/DB/dataUsers.json')
+    } catch (error) {
+      console.log(error);
+      this.DBUsers = []
+    }
+  }
+
+  saveDB() {
+    let data = JSON.stringify(this.DBUsers)
+    console.log(__dirname + 'assets/DB/dataUsers.json');
+
+    _fs.writeFile('dataUsers1.json', data, (error) => {
+      if (error) {
+        console.log(error);
+        throw new Error('No se creo el archivo')
+      } else {
+        console.log('Archivo guardado correctamente');
+      }
+    });
+  }
+
+  registerUser(user) {
+    try {
+      this.loadDB()
+      this.DBUsers.push(user)
+      this.login(user)
+      this.saveDB()
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }

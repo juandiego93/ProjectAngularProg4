@@ -4,5 +4,4 @@ export class UserModel {
     surnames: string;
     email: string;
     password: string;
-    confirm_password: string
 }

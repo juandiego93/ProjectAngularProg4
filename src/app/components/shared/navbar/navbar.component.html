@@ -41,7 +41,7 @@
             class="btn btn-outline-light my-2 my-sm-0 m-1">Iniciar Sesión</a>
         <a *ngIf="(isLoggeIn|async)" (click)="authService.logout()"
             class="btn btn-outline-light my-2 my-sm-0 m-1">Cerrar Sesión</a>
-        <a [routerLink]="['/register']" routerLinkActive="router-link-active"
+        <a *ngIf="!(isLoggeIn|async)" [routerLink]="['/register']" routerLinkActive="router-link-active"
             class="btn btn-outline-light my-2 my-sm-0 m-1">Registrate</a>
     </div>
 </nav>
