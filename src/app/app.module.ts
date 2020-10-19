@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,10 +12,10 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { UserComponent } from './components/pages/user/user.component';
 import { GameComponent } from './components/pages/game/game.component';
 import { GamesComponent } from './components/pages/games/games.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AboutComponent } from './components/pages/about/about.component';
 import { CrudGameComponent } from './components/pages/crud-game/crud-game.component';
 import { SearchComponent } from './components/pages/search/search.component';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { SearchComponent } from './components/pages/search/search.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

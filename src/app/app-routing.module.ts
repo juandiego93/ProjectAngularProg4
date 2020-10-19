@@ -6,18 +6,22 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { CrudGameComponent } from './components/pages/crud-game/crud-game.component';
 import { SearchComponent } from './components/pages/search/search.component';
+import { AuthGuard } from './auth/auth.guard';
+import { UserComponent } from './components/pages/user/user.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'crud-game', component: CrudGameComponent},
-  { path: 'search/:text', component: SearchComponent},
+  { path: 'search/:text', component: SearchComponent },
+
+  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'crud-game', component: CrudGameComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

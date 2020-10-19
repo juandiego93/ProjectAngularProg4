@@ -1,22 +1,32 @@
 <div class="login-dark">
-    <form id="form_login" onsubmit="submitForm(event)">
+    <form id="form_login" [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
         <div class="illustration">
             <i class="icon ion-ios-locked-outline">
                 <h1>Inicia Sesión</h1>
             </i>
         </div>
         <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="Email">
+            <input autocomplete="false" class="form-control" id="email_" type="email" name="email" placeholder="Email"
+                formControlName="email">
+            <span class="text-danger"
+                *ngIf="loginForm.controls.email.touched  && loginForm.controls.email.errors?.required">
+                El email es requerido
+            </span>
         </div>
         <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Contraseña">
+            <input autocomplete="off" class="form-control" id="pass_" type="password" name="password" placeholder="Contraseña"
+                formControlName="password">
+            <span class="text-danger"
+                *ngIf="loginForm.controls.password.touched  && loginForm.controls.password.errors?.required">
+                La contraseña es requerida
+            </span>
         </div>
         <div class="form-group">
             <button id="bntLogin_" class="btn btn-primary btn-block" type="submit">
                 Iniciar
             </button>
         </div>
-        <a [routerLink]="['/register']" routerLinkActive="router-link-active"  class="forgot">
+        <a [routerLink]="['/register']" routerLinkActive="router-link-active" class="forgot">
             ¿ No tienes cuenta ? <br> ! Registrate aquí !
         </a>
     </form>
