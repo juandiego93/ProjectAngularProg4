@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { BehaviorSubject, Observable } from 'rxjs'
 import * as jwt from 'jsonwebtoken';
-import * as fs from 'fs'
-import { UserModel } from '../models/User.model';
-const _fs = require('browserify-fs');
+import { UserModel } from '../models/User.model'
+import { HttpClient } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,21 +13,33 @@ export class AuthService {
   DBUsers: any = []
   isLogginSubject = new BehaviorSubject<boolean>(this.hasToken())
   JWT: string
+  server: string = 'http://localhost:3000'
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) {
+    this.loadDBUsers()
+    console.log(this.DBUsers);
+  }
 
   private hasToken(): boolean {
     return !!localStorage.getItem('token')
   }
 
-  login(user: UserModel): void {
+  async login(user: UserModel) {
     try {
-      if (this.searchUser(user)) {
-        const send = { email: user.email, pass: user.password }
+      // await this.loadDBUsers()
+      console.log(this.DBUsers);
+
+      const searchUser = this.searchUserForLogin(user)
+      if (searchUser) {
+        alert(`Bienvenido`)
+        const send = { id: user.username, email: user.email, pass: user.password }
         this.JWT = this.createToken(send)
         localStorage.setItem('token', `${this.JWT}`)
+        localStorage.setItem('nameUser', `${searchUser.nameUser}`)
         this.isLogginSubject.next(true)
         setTimeout(() => { this.router.navigate(['/user']) }, 1000)
+      } else {
+        alert('Usuario no registrado o Credenciales inválidas')
       }
     } catch (error) {
       this.logout()
@@ -35,16 +47,20 @@ export class AuthService {
     }
   }
 
-  searchUser(userLogin): boolean {
+  searchUserForLogin(userLogin) {
     const arrayUsers = this.DBUsers
-    const findUser = arrayUsers.find(user => {
-      return userLogin.email == user.email && userLogin.password == user.password
+
+    let findUser = arrayUsers.find(user => {
+      if (userLogin.email == user.email || userLogin.password == user.password) {
+        return user
+      }
     })
-    return findUser ? true : false
+    return findUser
   }
 
   logout(): void {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     localStorage.removeItem('auth_token')
     this.isLogginSubject.next(false)
     setTimeout(() => { this.router.navigate(['/']) }, 1000)
@@ -61,28 +77,44 @@ export class AuthService {
     return jwtBearerToken
   }
 
-  loadDB() {
-    try {
-      this.DBUsers = require('../../assets/DB/dataUsers.json')
-    } catch (error) {
-      console.log(error);
-      this.DBUsers = []
-    }
+  loadDBUsers() {
+    this.http.get(`${this.server}/loadUsers`)
+      .subscribe(
+        resp => {
+          this.DBUsers = resp
+          console.log(resp);
+
+        })
+      , err => {
+        console.log(err);
+      }
   }
 
-  saveDB() {
-    let data = JSON.stringify(this.DBUsers)
-    // fs.mkdir('', () => {
-    fs.writeFileSync('/db/dataUsers1.txt', 'Hola mundo', { encoding: 'utf8' })
-    // })
+  loadDBGames() {
+    this.http.get(`${this.server}/loadUsers`)
+      .subscribe(
+        resp => {
+          this.DBUsers = resp
+        })
+      , err => {
+        console.log(err);
+      }
   }
 
   registerUser(user) {
     try {
-      this.loadDB()
-      this.DBUsers.push(user)
-      this.login(user)
-      this.saveDB()
+      this.http.post(`${this.server}/createUser`, user)
+        .subscribe(
+          resp => {
+            if (resp['status']) {
+              alert(resp['message'])
+              this.router.navigate(['/login'])
+            }
+            console.log(resp);
+          })
+        , err => {
+          console.log(err);
+        }
     } catch (error) {
       console.log(error);
     }
