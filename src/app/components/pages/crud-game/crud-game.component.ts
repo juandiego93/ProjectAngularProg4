@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../../services/game.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import * as $ from 'jquery'
 @Component({
   selector: 'app-crud-game',
   templateUrl: './crud-game.component.html',
@@ -96,7 +96,8 @@ export class CrudGameComponent implements OnInit {
   editGame() {
     this.gameService.editGameByIdUser({ game: this.formEdit, id: this.id })
       .then(resp => {
-        console.log(resp);
+        // this.ngOnInit()
+        // $("#editGameModal").modal('hide');
       })
       .catch(err => {
         console.log(err);
