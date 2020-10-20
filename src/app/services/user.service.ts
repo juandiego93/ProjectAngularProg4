@@ -10,9 +10,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUserById(idUser): Promise<any> {
-    console.log(idUser);
     return this.http.post(`${this.server}/getUserById`, { id: idUser }).toPromise()
-
   }
 
 }

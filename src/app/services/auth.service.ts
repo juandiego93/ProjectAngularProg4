@@ -17,7 +17,6 @@ export class AuthService {
 
   constructor(private router: Router, private http: HttpClient) {
     this.loadDBUsers()
-    console.log(this.DBUsers);
   }
 
   private hasToken(): boolean {
@@ -26,9 +25,6 @@ export class AuthService {
 
   async login(user: UserModel) {
     try {
-      // await this.loadDBUsers()
-      console.log(this.DBUsers);
-
       const searchUser = this.searchUserForLogin(user)
       if (searchUser) {
         alert(`Bienvenido`)
@@ -82,8 +78,6 @@ export class AuthService {
       .subscribe(
         resp => {
           this.DBUsers = resp
-          console.log(resp);
-
         })
       , err => {
         console.log(err);
@@ -110,7 +104,6 @@ export class AuthService {
               alert(resp['message'])
               this.router.navigate(['/login'])
             }
-            console.log(resp);
           })
         , err => {
           console.log(err);

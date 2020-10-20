@@ -16,12 +16,11 @@ export class UserComponent implements OnInit {
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.idUser = localStorage.getItem('nameUser')
+    const id = this.idUser
+    this.getUserById(id)
   }
 
   ngOnInit(): void {
-    console.log(this.idUser);
-    const a = this.idUser
-    this.getUserById(a)
   }
 
   getUserById(idUser: string) {
