@@ -72,16 +72,9 @@ export class AuthService {
 
   saveDB() {
     let data = JSON.stringify(this.DBUsers)
-    console.log(__dirname + 'assets/DB/dataUsers.json');
-
-    _fs.writeFile('dataUsers1.json', data, (error) => {
-      if (error) {
-        console.log(error);
-        throw new Error('No se creo el archivo')
-      } else {
-        console.log('Archivo guardado correctamente');
-      }
-    });
+    // fs.mkdir('', () => {
+    fs.writeFileSync('/db/dataUsers1.txt', 'Hola mundo', { encoding: 'utf8' })
+    // })
   }
 
   registerUser(user) {
