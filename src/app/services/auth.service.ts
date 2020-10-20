@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
-import { Router } from '@angular/router'
 import { BehaviorSubject, Observable } from 'rxjs'
 import * as jwt from 'jsonwebtoken';
 import { UserModel } from '../models/User.model'
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'root'

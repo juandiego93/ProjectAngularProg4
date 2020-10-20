@@ -24,21 +24,26 @@
                         target="_blank">Nintendo Store</a>
                 </div>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/crud-game']" routerLinkActive="router-link-active">Registra tu
                     juego</a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/about']" routerLinkActive="router-link-active">Sobre Nosotros</a>
             </li>
+            <li *ngIf="(isLoggeIn|async)" class="nav-item">
+                <a class="nav-link" [routerLink]="['/crud-game']" routerLinkActive="router-link-active">Mis Juegos</a>
+            </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" #search_text>
             <button class="btn btn-outline-success my-2 my-sm-0" type="button"
                 (click)="search(search_text)">Buscar</button>
-        </form>
+        </form> -->
         <a *ngIf="!(isLoggeIn|async)" [routerLink]="['/login']" routerLinkActive="router-link-active"
             class="btn btn-outline-light my-2 my-sm-0 m-1">Iniciar Sesión</a>
+        <a *ngIf="(isLoggeIn|async)" [routerLink]="['/user']" routerLinkActive="router-link-active"
+            class="btn btn-outline-light my-2 my-sm-0 m-1">Perfíl</a>
         <a *ngIf="(isLoggeIn|async)" (click)="authService.logout()"
             class="btn btn-outline-light my-2 my-sm-0 m-1">Cerrar Sesión</a>
         <a *ngIf="!(isLoggeIn|async)" [routerLink]="['/register']" routerLinkActive="router-link-active"
